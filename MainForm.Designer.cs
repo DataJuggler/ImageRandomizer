@@ -44,6 +44,7 @@ namespace ImageRandomizer
             this.Graph = new System.Windows.Forms.ProgressBar();
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewFileNameControl = new DataJuggler.Win.Controls.LabelTextBoxControl();
+            this.IncrementControl = new DataJuggler.Win.Controls.LabelTextBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.TargetImageViewer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SliceImageViewer)).BeginInit();
             this.SuspendLayout();
@@ -129,7 +130,7 @@ namespace ImageRandomizer
             this.RandomizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RandomizeButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.RandomizeButton.ForeColor = System.Drawing.Color.LemonChiffon;
-            this.RandomizeButton.Location = new System.Drawing.Point(921, 416);
+            this.RandomizeButton.Location = new System.Drawing.Point(921, 459);
             this.RandomizeButton.Name = "RandomizeButton";
             this.RandomizeButton.Size = new System.Drawing.Size(184, 47);
             this.RandomizeButton.TabIndex = 2;
@@ -373,12 +374,40 @@ namespace ImageRandomizer
             this.NewFileNameControl.TextBoxFont = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NewFileNameControl.TextBoxTopMargin = 0;
             // 
+            // IncrementControl
+            // 
+            this.IncrementControl.BackColor = System.Drawing.Color.Transparent;
+            this.IncrementControl.BottomMargin = 0;
+            this.IncrementControl.Editable = true;
+            this.IncrementControl.Encrypted = false;
+            this.IncrementControl.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.IncrementControl.LabelBottomMargin = 0;
+            this.IncrementControl.LabelColor = System.Drawing.Color.LemonChiffon;
+            this.IncrementControl.LabelFont = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.IncrementControl.LabelText = "Increment:";
+            this.IncrementControl.LabelTopMargin = 0;
+            this.IncrementControl.LabelWidth = 140;
+            this.IncrementControl.Location = new System.Drawing.Point(783, 399);
+            this.IncrementControl.MultiLine = false;
+            this.IncrementControl.Name = "IncrementControl";
+            this.IncrementControl.OnTextChangedListener = null;
+            this.IncrementControl.PasswordMode = false;
+            this.IncrementControl.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.IncrementControl.Size = new System.Drawing.Size(322, 31);
+            this.IncrementControl.TabIndex = 14;
+            this.IncrementControl.TextBoxBottomMargin = 0;
+            this.IncrementControl.TextBoxDisabledColor = System.Drawing.Color.LightGray;
+            this.IncrementControl.TextBoxEditableColor = System.Drawing.Color.White;
+            this.IncrementControl.TextBoxFont = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.IncrementControl.TextBoxTopMargin = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1186, 538);
+            this.Controls.Add(this.IncrementControl);
             this.Controls.Add(this.NewFileNameControl);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.Graph);
@@ -420,6 +449,7 @@ namespace ImageRandomizer
         private System.Windows.Forms.ProgressBar Graph;
         private System.Windows.Forms.Button SaveButton;
         private DataJuggler.Win.Controls.LabelTextBoxControl NewFileNameControl;
+        private DataJuggler.Win.Controls.LabelTextBoxControl IncrementControl;
     }
 }
 

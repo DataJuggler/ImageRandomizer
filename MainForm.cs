@@ -12,6 +12,7 @@ using DataJuggler.UltimateHelper;
 using ImageRandomizer.Enumerations;
 using System.Drawing;
 using System.IO;
+using DataJuggler.RandomShuffler.Enumerations;
 
 #endregion
 
@@ -78,55 +79,59 @@ namespace ImageRandomizer
             /// </summary>
             public void OnTextChanged(Control sender, string text)
             {
-                // if this is the SliceImageControl
-                if (sender.Name == SliceImageControl.Name)
-                {
-                    // Store the property
-                    SliceImagePath = text;
-
-                    // Load the Slice
-                    this.SliceImageViewer.BackgroundImage = Image.FromFile(text);
-
-                    // load the pixelDatabase of the slice image
-                    this.SliceDatabase = PixelDatabaseLoader.LoadPixelDatabase(SliceImageControl.Text, this.Callback);
-                }
-                else if (sender.Name == TargetImageControl.Name)
-                {
-                    // createa a fileInfo
-                    FileInfo fileInfo = new FileInfo(text);
-
-                    // Get the output path
-                    OutputPath = fileInfo.Directory.FullName;
-
-                    // create a shuffler
-                    LargeNumberShuffler shuffler = new LargeNumberShuffler(6, 1, 100000, DataJuggler.RandomShuffler.Enumerations.NumberOutOfRangeOptionEnum.ReturnModulus);
-
-                    // remove the extension add the random number put the extension back
-                    string name = fileInfo.Name.Replace(fileInfo.Extension, "") + shuffler.PullNumber() + fileInfo.Extension;
-
-                    // set the Text
-                    this.NewFileNameControl.Text = name;
-
-                    // Set the property
-                    TargetImagePath = text;
-
-                    // Load the Target
-                    this.TargetImageViewer.BackgroundImage = Image.FromFile(text);    
-
-                    // load the pixelDatabase of the target image
-                    this.TargetDatabase = PixelDatabaseLoader.LoadPixelDatabase(TargetImageControl.Text, this.Callback);
-                }
-                else if (sender.Name == NumberSlicesControl.Name)
+                // if this is the NumberSlicesControl
+                if (sender.Name == NumberSlicesControl.Name)
                 {
                     // Set the NumberSlices
                     this.NumberSlices = NumberSlicesControl.IntValue;
                 }
-                
-                // if both databases exist
-                if ((HasSliceDatabase) && (HasTargetDatabase))
+                else
                 {
-                     double slices = targetDatabase.Height / sliceDatabase.Height;
-                    this.NumberSlicesControl.Text = Math.Floor(slices).ToString();
+                    // if this is the SliceImageControl
+                    if (sender.Name == SliceImageControl.Name)
+                    {
+                        // Store the property
+                        SliceImagePath = text;
+
+                        // Load the Slice
+                        this.SliceImageViewer.BackgroundImage = Image.FromFile(text);
+
+                        // load the pixelDatabase of the slice image
+                        this.SliceDatabase = PixelDatabaseLoader.LoadPixelDatabase(SliceImageControl.Text, this.Callback);
+                    }
+                    else if (sender.Name == TargetImageControl.Name)
+                    {
+                        // createa a fileInfo
+                        FileInfo fileInfo = new FileInfo(text);
+
+                        // Get the output path
+                        OutputPath = fileInfo.Directory.FullName;
+
+                        // create a shuffler
+                        LargeNumberShuffler shuffler = new LargeNumberShuffler(6, 1, 100000, DataJuggler.RandomShuffler.Enumerations.NumberOutOfRangeOptionEnum.ReturnModulus);
+
+                        // remove the extension add the random number put the extension back
+                        string name = fileInfo.Name.Replace(fileInfo.Extension, "") + shuffler.PullNumber() + fileInfo.Extension;
+
+                        // set the Text
+                        this.NewFileNameControl.Text = name;
+
+                        // Set the property
+                        TargetImagePath = text;
+
+                        // Load the Target
+                        this.TargetImageViewer.BackgroundImage = Image.FromFile(text);    
+
+                        // load the pixelDatabase of the target image
+                        this.TargetDatabase = PixelDatabaseLoader.LoadPixelDatabase(TargetImageControl.Text, this.Callback);
+                    }
+
+                    // if both databases exist
+                    if ((HasSliceDatabase) && (HasTargetDatabase))
+                    {
+                        double slices = targetDatabase.Height / sliceDatabase.Height;
+                        this.NumberSlicesControl.Text = Math.Floor(slices).ToString();
+                    }
                 }
             }
             #endregion
@@ -145,6 +150,8 @@ namespace ImageRandomizer
                 bool isValid = false;
                 int offSetX = 0;
                 int offSetY = 0;
+                int increment = 0;
+                int incrementedValue = 0;
                 
                 // Set the orientation
                 OrientationEnum orientation = (OrientationEnum) OrientationControl.SelectedIndex;
@@ -162,11 +169,14 @@ namespace ImageRandomizer
                     int max = MaxValueControl.IntValue;
                     int startX = StartXControl.IntValue;
                     int startY = StartYControl.IntValue;
+                    increment = IncrementControl.IntValue;
                     int row = -1;
                     int col = -1;
+                    int indent = 0;
+                    LargeNumberShuffler shuffler = null;
                         
                     // verify everything is in rage
-                    if ((min > 0) && (max > 0) && (max > min))
+                    if ((min > 0) && (max > 0) && (max > min) || (max == 0))
                     {
                         // valid
                         isValid = true;
@@ -175,9 +185,13 @@ namespace ImageRandomizer
                         this.Graph.Visible = true;
                         this.Graph.Minimum = 0;
                         this.Graph.Maximum = NumberSlicesControl.IntValue;
-                            
-                        // Create a new instance of a 'RandomShuffler' object.
-                        RandomShuffler shuffler = new RandomShuffler(min, max, 2);
+                        
+                        // If the value for max is greater than zero
+                        if (max > 0)
+                        {
+                            // Create a new instance of a 'RandomShuffler' object.
+                            shuffler = new LargeNumberShuffler(6, 1, 375894, NumberOutOfRangeOptionEnum.ReturnModulus);
+                        }
 
                         // if horizontal
                         if (orientation == OrientationEnum.Horizontal)
@@ -188,8 +202,15 @@ namespace ImageRandomizer
                                 // Update the graph
                                 Graph.Value = section;    
 
-                                // pull the next item
-                                int indent = shuffler.PullNextItem();
+                                // Add the increment to the incrementedValue
+                                incrementedValue += increment;
+
+                                // if max is set, else we do not need indent
+                                if (max > 0)
+                                {
+                                    // pull the next item
+                                    indent = (shuffler.PullNumber() % 86) + 1;
+                                }
 
                                 // now we need to copy the entire sourceImage onto the target, using this indent
                                 
@@ -205,10 +226,13 @@ namespace ImageRandomizer
                                         {
                                             // get the new x
                                             offSetX = indent + startX + x;
-                                            offSetY = (section * rowHeight) + y + startY;
+                                            offSetY = (section * rowHeight) + y + startY + incrementedValue;
 
-                                            // Set the pixel color
-                                            targetDatabase.SetPixelColor(offSetX, offSetY, pixel.Color, false, 0);
+                                            if (offSetY < targetDatabase.Height)
+                                            {
+                                                // Set the pixel color
+                                                targetDatabase.SetPixelColor(offSetX, offSetY, pixel.Color, false, 0);
+                                            }
                                         }
                                         else
                                         {
@@ -311,7 +335,7 @@ namespace ImageRandomizer
 
                 // Set Defaults
                 this.MinValueControl.Text = "1";
-                this.MaxValueControl.Text = "86";
+                this.MaxValueControl.Text = "0";
                 this.StartXControl.Text = "0";
                 this.StartYControl.Text = "0";
             }
