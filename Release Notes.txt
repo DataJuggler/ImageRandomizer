@@ -1,0 +1,22 @@
+12.25.2020: I wrote this program to randomize the appearance of some poker ships using IClone 3D software.
+
+Here is the video if you care to watch:
+
+(Fill In Link To Video After Its Made)
+
+To run this program, create a "slice" image that is smaller than your "target" image. Createa  new image as your target, and 
+set any background images or colors you want.
+
+Then browse for the Slice Image and the Target Image.
+
+Set your min and max values for Indent.
+
+Click the Randomize Button and it should fill in the Target Image with the Source Image.
+
+Save the image when ready. The image will be saved in the same directory the Slice Image comes from (or Target, not sure. Use the same directory and for sure I am right).,
+
+Next to go https://github.com/DataJuggler/ImageRandomizer and star this project.
+
+Next: (Optional) go to https://github.com/DataJuggler/ and find every project I have and star it.
+
+Thank you
