@@ -3,5 +3,6 @@ This project uses my Nuget package DataJuggler.PixelDatabase and some others to 
 so my poker chips in a stack do not look all the same.
 
 Here is a video demo:
+
 https://youtu.be/yERnX4Hpf6A (should be done uploading before anyone sees this)
 
