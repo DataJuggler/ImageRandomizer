@@ -38,7 +38,6 @@ namespace ImageRandomizer
             this.MinValueControl = new DataJuggler.Win.Controls.LabelTextBoxControl();
             this.MaxValueControl = new DataJuggler.Win.Controls.LabelTextBoxControl();
             this.NumberSlicesControl = new DataJuggler.Win.Controls.LabelTextBoxControl();
-            this.OrientationControl = new DataJuggler.Win.Controls.LabelComboBoxControl();
             this.StartXControl = new DataJuggler.Win.Controls.LabelTextBoxControl();
             this.StartYControl = new DataJuggler.Win.Controls.LabelTextBoxControl();
             this.Graph = new System.Windows.Forms.ProgressBar();
@@ -130,7 +129,7 @@ namespace ImageRandomizer
             this.RandomizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RandomizeButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.RandomizeButton.ForeColor = System.Drawing.Color.LemonChiffon;
-            this.RandomizeButton.Location = new System.Drawing.Point(921, 459);
+            this.RandomizeButton.Location = new System.Drawing.Point(921, 398);
             this.RandomizeButton.Name = "RandomizeButton";
             this.RandomizeButton.Size = new System.Drawing.Size(184, 47);
             this.RandomizeButton.TabIndex = 2;
@@ -239,31 +238,6 @@ namespace ImageRandomizer
             this.NumberSlicesControl.TextBoxFont = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NumberSlicesControl.TextBoxTopMargin = 0;
             // 
-            // OrientationControl
-            // 
-            this.OrientationControl.BackColor = System.Drawing.Color.Transparent;
-            this.OrientationControl.ComboBoxLeftMargin = 1;
-            this.OrientationControl.ComboBoxText = "";
-            this.OrientationControl.ComoboBoxFont = null;
-            this.OrientationControl.Editable = true;
-            this.OrientationControl.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.OrientationControl.HideLabel = false;
-            this.OrientationControl.LabelBottomMargin = 0;
-            this.OrientationControl.LabelColor = System.Drawing.Color.LemonChiffon;
-            this.OrientationControl.LabelFont = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.OrientationControl.LabelText = "Orientation:";
-            this.OrientationControl.LabelTopMargin = 0;
-            this.OrientationControl.LabelWidth = 140;
-            this.OrientationControl.List = null;
-            this.OrientationControl.Location = new System.Drawing.Point(783, 286);
-            this.OrientationControl.Name = "OrientationControl";
-            this.OrientationControl.SelectedIndex = -1;
-            this.OrientationControl.SelectedIndexListener = null;
-            this.OrientationControl.Size = new System.Drawing.Size(322, 33);
-            this.OrientationControl.Sorted = true;
-            this.OrientationControl.Source = null;
-            this.OrientationControl.TabIndex = 8;
-            // 
             // StartXControl
             // 
             this.StartXControl.BackColor = System.Drawing.Color.Transparent;
@@ -277,7 +251,7 @@ namespace ImageRandomizer
             this.StartXControl.LabelText = "Start X:";
             this.StartXControl.LabelTopMargin = 0;
             this.StartXControl.LabelWidth = 140;
-            this.StartXControl.Location = new System.Drawing.Point(783, 325);
+            this.StartXControl.Location = new System.Drawing.Point(783, 286);
             this.StartXControl.MultiLine = false;
             this.StartXControl.Name = "StartXControl";
             this.StartXControl.OnTextChangedListener = null;
@@ -304,7 +278,7 @@ namespace ImageRandomizer
             this.StartYControl.LabelText = "Start Y:";
             this.StartYControl.LabelTopMargin = 0;
             this.StartYControl.LabelWidth = 140;
-            this.StartYControl.Location = new System.Drawing.Point(783, 363);
+            this.StartYControl.Location = new System.Drawing.Point(783, 324);
             this.StartYControl.MultiLine = false;
             this.StartYControl.Name = "StartYControl";
             this.StartYControl.OnTextChangedListener = null;
@@ -320,7 +294,7 @@ namespace ImageRandomizer
             // 
             // Graph
             // 
-            this.Graph.Location = new System.Drawing.Point(186, 353);
+            this.Graph.Location = new System.Drawing.Point(186, 361);
             this.Graph.Name = "Graph";
             this.Graph.Size = new System.Drawing.Size(582, 23);
             this.Graph.TabIndex = 11;
@@ -337,7 +311,7 @@ namespace ImageRandomizer
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.SaveButton.ForeColor = System.Drawing.Color.LemonChiffon;
-            this.SaveButton.Location = new System.Drawing.Point(578, 391);
+            this.SaveButton.Location = new System.Drawing.Point(578, 398);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(188, 47);
             this.SaveButton.TabIndex = 12;
@@ -360,7 +334,7 @@ namespace ImageRandomizer
             this.NewFileNameControl.LabelText = "New Filename:";
             this.NewFileNameControl.LabelTopMargin = 0;
             this.NewFileNameControl.LabelWidth = 140;
-            this.NewFileNameControl.Location = new System.Drawing.Point(45, 398);
+            this.NewFileNameControl.Location = new System.Drawing.Point(45, 405);
             this.NewFileNameControl.MultiLine = false;
             this.NewFileNameControl.Name = "NewFileNameControl";
             this.NewFileNameControl.OnTextChangedListener = null;
@@ -387,7 +361,7 @@ namespace ImageRandomizer
             this.IncrementControl.LabelText = "Increment:";
             this.IncrementControl.LabelTopMargin = 0;
             this.IncrementControl.LabelWidth = 140;
-            this.IncrementControl.Location = new System.Drawing.Point(783, 399);
+            this.IncrementControl.Location = new System.Drawing.Point(783, 361);
             this.IncrementControl.MultiLine = false;
             this.IncrementControl.Name = "IncrementControl";
             this.IncrementControl.OnTextChangedListener = null;
@@ -413,7 +387,6 @@ namespace ImageRandomizer
             this.Controls.Add(this.Graph);
             this.Controls.Add(this.StartYControl);
             this.Controls.Add(this.StartXControl);
-            this.Controls.Add(this.OrientationControl);
             this.Controls.Add(this.NumberSlicesControl);
             this.Controls.Add(this.MaxValueControl);
             this.Controls.Add(this.MinValueControl);
@@ -443,7 +416,6 @@ namespace ImageRandomizer
         private DataJuggler.Win.Controls.LabelTextBoxControl MinValueControl;
         private DataJuggler.Win.Controls.LabelTextBoxControl MaxValueControl;
         private DataJuggler.Win.Controls.LabelTextBoxControl NumberSlicesControl;
-        private DataJuggler.Win.Controls.LabelComboBoxControl OrientationControl;
         private DataJuggler.Win.Controls.LabelTextBoxControl StartXControl;
         private DataJuggler.Win.Controls.LabelTextBoxControl StartYControl;
         private System.Windows.Forms.ProgressBar Graph;

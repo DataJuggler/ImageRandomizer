@@ -1,9 +1,31 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>Art.ico</ApplicationIcon>
+    <Authors>Image Randomizer</Authors>
+    <Product>Image Randomizer</Product>
+    <Description>This product was built for a specific purpose of randomizing a slice of a
+poker chips UV map for IClone. The duplication feature is semi generic
+and could be useful to duplicate parts of one image onto another with random positioning (horizontal for now).
+
+</Description>
+    <Copyright>2020 - Use As Is - Do Whatever You Want</Copyright>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/DataJuggler/ImageRandomizer</PackageProjectUrl>
+    <PackageIcon>Art.png</PackageIcon>
+    <RepositoryUrl>https://github.com/DataJuggler/ImageRandomizer.git</RepositoryUrl>
+    <RepositoryType>Git GitHub</RepositoryType>
+    <PackageTags>Image,Random Image Positioning, Image Duplication</PackageTags>
+    <PackageReleaseNotes>This project was written today, Christmas 2020 in a couple of hours.
+
+The Nuget package that powers it DataJuggler.PixelDatabase was how I did it so quick.
+
+This was a specific purpose application, but could be useful if you need to copy one image onto another multiple times and indent like I did in this video:
+
+(Video URL will be set once published).</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +48,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\RandomArt\Art.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="License\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

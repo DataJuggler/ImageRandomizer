@@ -153,9 +153,6 @@ namespace ImageRandomizer
                 int increment = 0;
                 int incrementedValue = 0;
                 
-                // Set the orientation
-                OrientationEnum orientation = (OrientationEnum) OrientationControl.SelectedIndex;
-                
                 // load the target database
                 PixelDatabase targetDatabase = PixelDatabaseLoader.LoadPixelDatabase(targetImage, this.Callback);
 
@@ -170,8 +167,6 @@ namespace ImageRandomizer
                     int startX = StartXControl.IntValue;
                     int startY = StartYControl.IntValue;
                     increment = IncrementControl.IntValue;
-                    int row = -1;
-                    int col = -1;
                     int indent = 0;
                     LargeNumberShuffler shuffler = null;
                         
@@ -193,67 +188,53 @@ namespace ImageRandomizer
                             shuffler = new LargeNumberShuffler(6, 1, 375894, NumberOutOfRangeOptionEnum.ReturnModulus);
                         }
 
-                        // if horizontal
-                        if (orientation == OrientationEnum.Horizontal)
+                        // setup the section
+                        for (int section = 0; section < NumberSlices; section++)
                         {
-                            // setup the section
-                            for (int section = 0; section < NumberSlices; section++)
+                            // Update the graph
+                            Graph.Value = section;    
+
+                            // Add the increment to the incrementedValue
+                            incrementedValue += increment;
+
+                            // if max is set, else we do not need indent
+                            if (max > 0)
                             {
-                                // Update the graph
-                                Graph.Value = section;    
-
-                                // Add the increment to the incrementedValue
-                                incrementedValue += increment;
-
-                                // if max is set, else we do not need indent
-                                if (max > 0)
-                                {
-                                    // pull the next item
-                                    indent = (shuffler.PullNumber() % 86) + 1;
-                                }
-
-                                // now we need to copy the entire sourceImage onto the target, using this indent
-                                
-                                // iterate the y pixels 
-                                for (int x = 0; x < rowWidth; x++)
-                                {
-                                    for (int y = 0; y < rowHeight; y++)
-                                    {
-                                        // get this pixel
-                                        PixelInformation pixel = sliceDatabase.GetPixel(x , y);
-
-                                        if (NullHelper.Exists(pixel))
-                                        {
-                                            // get the new x
-                                            offSetX = indent + startX + x;
-                                            offSetY = (section * rowHeight) + y + startY + incrementedValue;
-
-                                            if (offSetY < targetDatabase.Height)
-                                            {
-                                                // Set the pixel color
-                                                targetDatabase.SetPixelColor(offSetX, offSetY, pixel.Color, false, 0);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            y = y + 1 - 1;
-                                        }
-                                    }
-                                }
+                                // pull the next item
+                                indent = (shuffler.PullNumber() % 86) + 1;
                             }
 
-                            // Set the image
-                            TargetImageViewer.BackgroundImage = targetDatabase.DirectBitmap.Bitmap;
+                            // now we need to copy the entire sourceImage onto the target, using this indent
                                 
-                            // UPdate this UI
-                            Refresh();
-                        }
-                        else
-                        {
-                            // vertical
+                            // iterate the y pixels 
+                            for (int x = 0; x < rowWidth; x++)
+                            {
+                                for (int y = 0; y < rowHeight; y++)
+                                {
+                                    // get this pixel
+                                    PixelInformation pixel = sliceDatabase.GetPixel(x , y);
 
-                            // to do: Vertical
+                                    if (NullHelper.Exists(pixel))
+                                    {
+                                        // get the new x
+                                        offSetX = indent + startX + x;
+                                        offSetY = (section * rowHeight) + y + startY + incrementedValue;
+
+                                        if (offSetY < (targetDatabase.Height - 1))
+                                        {
+                                            // Set the pixel color
+                                            targetDatabase.SetPixelColor(offSetX, offSetY, pixel.Color, false, 0);
+                                        }
+                                    }                                    
+                                }
+                            }                        
                         }
+
+                        // Set the image
+                        TargetImageViewer.BackgroundImage = targetDatabase.DirectBitmap.Bitmap;
+                                
+                        // UPdate this UI
+                        Refresh();
                     }
                     else
                     {
@@ -321,13 +302,7 @@ namespace ImageRandomizer
             /// This method performs initializations for this object.
             /// </summary>
             public void Init()
-            {
-                // Load our items
-                this.OrientationControl.LoadItems(typeof(OrientationEnum));
-
-                // Select the first item
-                this.OrientationControl.SelectedIndex = 0;
-
+            { 
                 // Setup the listeners
                 this.SliceImageControl.OnTextChangedListener = this;
                 this.TargetImageControl.OnTextChangedListener = this;
