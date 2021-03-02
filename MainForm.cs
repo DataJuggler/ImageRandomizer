@@ -119,8 +119,8 @@ namespace ImageRandomizer
                         // Set the property
                         TargetImagePath = text;
 
-                        // Load the Target
-                        this.TargetImageViewer.BackgroundImage = Image.FromFile(text);    
+                        // Load the Target                        
+                        TargetImageViewer.BackgroundImage = Image.FromFile(text);    
 
                         // load the pixelDatabase of the target image
                         this.TargetDatabase = PixelDatabaseLoader.LoadPixelDatabase(TargetImageControl.Text, this.Callback);
@@ -214,6 +214,7 @@ namespace ImageRandomizer
                                     // get this pixel
                                     PixelInformation pixel = sliceDatabase.GetPixel(x , y);
 
+                                    // If the pixel object exists
                                     if (NullHelper.Exists(pixel))
                                     {
                                         // get the new x
